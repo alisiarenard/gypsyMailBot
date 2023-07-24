@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -25,7 +25,10 @@
     </last-used-providers>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="ee972de7-e2c7-43a8-a068-97d559f0fcb6" object-ref="schemas/public/tables/trips" />
+      <object connection-id="ee972de7-e2c7-43a8-a068-97d559f0fcb6" object-ref="schemas/public/tables/subscriptions" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="ee972de7-e2c7-43a8-a068-97d559f0fcb6" dataset="public.subscriptions" active-filter-id="EMPTY_FILTER" />
