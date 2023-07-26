@@ -1,5 +1,5 @@
-const buttons = require("../../common/consts/buttons.const");
+import buttons from "../../common/consts/buttons.const.js";
 
-exports.startAction = async (ctx) => {
+export const startAction = async (ctx: any) => {
     await ctx.reply("Привет! Этот бот помогает передавать посылки и документы. Выбери чего хочешь ты", buttons.MAIN_MENU);
 }

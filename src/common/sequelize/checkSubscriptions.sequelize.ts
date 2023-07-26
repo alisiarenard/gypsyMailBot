@@ -1,8 +1,8 @@
-const db = require("../../connections/db.connection");
-const SubscriptionModel = require("../../models/subscriptions.model");
-const {Op} = require("sequelize");
+import {db} from "../../connections/db.connection.js";
+import SubscriptionModel from "../../models/subscriptions.model.js";
+import {Op} from "sequelize";
 
-exports.checkSubscription = async (chatId, from, to) => {
+export const checkSubscription = async (chatId: string, from: string, to: string) => {
 
     return db.sync().then(async () => {
         const currentDate = new Date();

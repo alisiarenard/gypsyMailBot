@@ -1,6 +1,7 @@
-const db = require("../../connections/db.connection");
-const SubscriptionModel = require("../../models/subscriptions.model");
-exports.getSubscriptionByChatId = async (chatId) => {
+import {db} from "../../connections/db.connection.js";
+import SubscriptionModel from "../../models/subscriptions.model.js";
+
+export const getSubscriptionByChatId = async (chatId: string) => {
     return db.sync().then(async () => {
         const trips = await SubscriptionModel.findAll({
             where: {

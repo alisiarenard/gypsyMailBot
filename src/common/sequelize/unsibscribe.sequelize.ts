@@ -1,7 +1,7 @@
-const db = require("../../connections/db.connection");
-const SubscriptionModel = require("../../models/subscriptions.model");
+import {db} from "../../connections/db.connection.js";
+import SubscriptionModel from "../../models/subscriptions.model.js";
 
-exports.unsubscribe = async (chatId, from, to) => {
+export const unsubscribe = async (chatId: string, from: string, to: string) => {
     return db.sync().then(async () => {
         const subscription = await SubscriptionModel.findOne({
             where: {
@@ -13,7 +13,7 @@ exports.unsubscribe = async (chatId, from, to) => {
         });
 
         if (subscription) {
-            subscription.update({
+            await subscription.update({
                 isActive: false
             });
         }

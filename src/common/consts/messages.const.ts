@@ -18,7 +18,7 @@ const DELETE_SUBSCRIPTION = 'Выберете маршрут для которо
 const NO_SUBSCRIPTIONS = 'Ты не подписан ни на один маршрут';
 const EMPTY_ROUTES = 'Пока не добавлено ни одного маршрута';
 
-module.exports = {
+const messages = {
     FROM_TO,
     INVALID_ROUTE,
     NO_ROUTES,
@@ -39,3 +39,5 @@ module.exports = {
     NO_SUBSCRIPTIONS,
     EMPTY_ROUTES
 };
+
+export default messages;

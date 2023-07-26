@@ -1,17 +1,17 @@
-const {Scenes, Markup} = require("telegraf");
-const {getTrip} = require("../../common/sequelize/getTrip.sequelize");
-const {subscribe} = require("../../common/sequelize/subscribe.sequelize");
-const {isValidInput, isValidCity} = require('../../common/helpers/validation.helper');
-const moment = require("moment");
-const message = require('../../common/consts/messages.const');
-const {getInvalidDirectionMessage, getTripMessage, backToStart} = require('../../common/helpers/messages.helper');
-const {checkSubscription} = require("../../common/sequelize/checkSubscriptions.sequelize");
-const buttons = require("../../common/consts/buttons.const");
-const {getFrom, getTo} = require("../../common/helpers/validation.helper");
+import {Scenes, Markup} from "telegraf";
+import {getTrip} from "../../common/sequelize/getTrip.sequelize.js";
+import {subscribe} from "../../common/sequelize/subscribe.sequelize.js";
+import {isValidInput, isValidCity} from '../../common/helpers/validation.helper.js';
+import moment from "moment";
+import message from '../../common/consts/messages.const.js';
+import {getInvalidDirectionMessage, getTripMessage, backToStart} from '../../common/helpers/messages.helper.js';
+import {checkSubscription} from "../../common/sequelize/checkSubscriptions.sequelize.js";
+import buttons from "../../common/consts/buttons.const.js";
+import {getFrom, getTo} from "../../common/helpers/validation.helper.js";
 
-const getTripScene = new Scenes.WizardScene(
+export const getTripScene = new Scenes.WizardScene(
         'getTrip',
-        async (ctx) => {
+        async (ctx: any) => {
             await ctx.reply(message.FROM_TO);
 
             ctx.wizard.state.data = {};
@@ -74,12 +74,12 @@ const getTripScene = new Scenes.WizardScene(
     );
 
 
-const onSubscribe = (ctx) => {
+const onSubscribe = (ctx: any) => {
     try {
         const chatId = ctx.message.chat.id;
         const from = ctx.wizard.state.data.from;
         const to = ctx.wizard.state.data.to;
-        const startDate = new Date();
+        const startDate = new Date().toISOString();
         const endDate = moment().add(14, 'days').toISOString();
         checkSubscription(String(chatId), from, to).then((subscriptions) => {
             if (subscriptions.length) {
@@ -98,5 +98,3 @@ const onSubscribe = (ctx) => {
         backToStart(ctx);
     }
 }
-
-module.exports = {getTripScene};

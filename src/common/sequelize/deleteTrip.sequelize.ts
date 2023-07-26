@@ -1,7 +1,7 @@
-const db = require("../../connections/db.connection");
-const TripModel = require("../../models/trips.model");
+import {db} from "../../connections/db.connection.js";
+import TripModel from "../../models/trips.model.js";
 
-exports.deleteTrip = (chatId, from, to, date) => {
+export const deleteTrip = (chatId: string, from: string, to: string, date: Date) => {
     return db.sync().then(async () => {
         const subscription = await TripModel.findOne({
             where: {
@@ -14,7 +14,7 @@ exports.deleteTrip = (chatId, from, to, date) => {
         });
 
         if (subscription) {
-            subscription.update({
+            await subscription.update({
                 isActive: false
             });
         }

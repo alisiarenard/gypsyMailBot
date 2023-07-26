@@ -1,8 +1,8 @@
-const  db = require("../../connections/db.connection");
-const TripModel = require("../../models/trips.model");
-const {Op} = require("sequelize");
+import {db} from "../../connections/db.connection.js";
+import TripModel from "../../models/trips.model.js";
+import {Op} from "sequelize";
 
-exports.getTrip = async (from, to) => {
+export const getTrip = async (from: string, to: string) => {
     const currentDate = new Date;
     return db.sync().then(async () => {
         const trips = await TripModel.findAll({

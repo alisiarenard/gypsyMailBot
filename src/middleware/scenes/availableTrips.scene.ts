@@ -1,20 +1,21 @@
-const {Scenes, Markup} = require("telegraf");
-const {getAvailableTrips} = require("../../common/sequelize/availableTrips.sequelize");
-const message = require('../../common/consts/messages.const');
-const {getTrip} = require("../../common/sequelize/getTrip.sequelize");
-const {getTripMessage} = require("../../common/helpers/messages.helper");
-const buttons = require("../../common/consts/buttons.const");
-const {startAction} = require("../actions/start.action");
-const {getFrom, getTo} = require("../../common/helpers/validation.helper");
+import {Scenes, Markup} from "telegraf";
+import {getAvailableTrips} from "../../common/sequelize/availableTrips.sequelize.js";
+import message from '../../common/consts/messages.const.js';
+import {getTrip} from "../../common/sequelize/getTrip.sequelize.js";
+import {getTripMessage} from "../../common/helpers/messages.helper.js";
+import buttons from "../../common/consts/buttons.const.js";
+import {startAction} from "../actions/start.action.js";
+import {getFrom, getTo} from "../../common/helpers/validation.helper.js";
 
-const showAvailableTripsScene = new Scenes.WizardScene(
+export const showAvailableTripsScene = new Scenes.WizardScene(
     'showAvailableTrips',
-    async (ctx) => {
+    async (ctx: any) => {
         try {
 
+            // @ts-ignore
             getAvailableTrips().then((data) => {
                 if (data.length) {
-                    const btns = data.map((trip) => {
+                    const btns = data.map((trip: string) => {
                         return [Markup.button.callback(trip, trip)];
                     });
                     btns.push([Markup.button.callback(buttons.BACK, buttons.BACK)]);
@@ -38,10 +39,13 @@ const showAvailableTripsScene = new Scenes.WizardScene(
                 await startAction(ctx);
                 return;
             }
+
             if (ctx.callbackQuery?.data) {
                 await ctx.deleteMessage();
-                const from = getFrom(ctx.callbackQuery.data, '->');
-                const to = getTo(ctx.callbackQuery.data, '->');
+
+                const from = getFrom(ctx.callbackQuery?.data, '->');
+
+                const to = getTo(ctx.callbackQuery?.data, '->');
 
                 getTrip(from, to).then(async (data) => {
                     if (data.length) {
@@ -59,5 +63,3 @@ const showAvailableTripsScene = new Scenes.WizardScene(
         }
 
     });
-
-module.exports = {showAvailableTripsScene};

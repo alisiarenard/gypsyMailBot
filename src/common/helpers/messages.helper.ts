@@ -1,13 +1,13 @@
-const moment = require("moment/moment");
-const {startAction} = require('../../middleware/actions/start.action')
+import moment from "moment/moment.js";
+import {startAction} from '../../middleware/actions/start.action.js';
 
-exports.getInvalidDirectionMessage = (fromIsValid, toIsValid) => {
+export function getInvalidDirectionMessage(fromIsValid: boolean, toIsValid: boolean): string {
     const direction = !fromIsValid && toIsValid ? 'отправления' : !toIsValid && fromIsValid ? 'назначения' : 'отправления и назначения';
 
     return `Ты указал несуществующий город ${direction}. Укажи маршрут в формате Город отправления Город назначения, например, Москва Белград`;
 }
 
-exports.getTripMessage = (trip) => {
+export function getTripMessage(trip: any) {
     const href = `https://t.me/${trip.username}`
     const contact = Array.from(trip.username)[0] === '+' ? href : '@' + trip.username;
     const comment = trip.comment === 'Без комментария' ? '' : `\nКомментарий: ${trip.comment}`
@@ -16,7 +16,7 @@ exports.getTripMessage = (trip) => {
     return `Контакт: ${contact}\nДата: ${formatDate}\nМожет передать: ${trip.parcelType}\nСтоимость: ${trip.cost}${comment}`;
 }
 
-exports.backToStart = async (ctx) => {
+export async function backToStart(ctx: any) {
     await ctx.scene.leave();
     await ctx.reply('Предыдущая сессия завершена');
     await startAction(ctx);

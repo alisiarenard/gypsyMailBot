@@ -1,4 +1,4 @@
-module.exports = {
+const cities = {
     "city": [
     {
         "city_id": "6",
@@ -65816,3 +65816,5 @@ module.exports = {
     }
 ]
 }
+
+export default cities;

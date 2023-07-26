@@ -1,21 +1,21 @@
-const {Scenes} = require("telegraf");
-const {saveTrip} = require("../../common/sequelize/saveTrip.sequelize");
-const {getSubscriptions} = require("../../common/sequelize/getSubscriptions.sequelize");
-const {checkExistedTrip} = require('../../common/sequelize/checkExistedTrip.sequelize');
-const {getTripsByChatId} = require('../../common/sequelize/getTripsByChatId.sequilize');
-const message = require('../../common/consts/messages.const');
-const {
+import {Scenes} from "telegraf";
+import {saveTrip} from "../../common/sequelize/saveTrip.sequelize.js";
+import {getSubscriptions} from "../../common/sequelize/getSubscriptions.sequelize.js";
+import {checkExistedTrip}from '../../common/sequelize/checkExistedTrip.sequelize.js';
+import {getTripsByChatId} from '../../common/sequelize/getTripsByChatId.sequilize.js';
+import message from '../../common/consts/messages.const.js';
+import {
     isValidInput,
     isValidCity,
     isValidFormatDate, getTo, getFrom, getDate
-} = require('../../common/helpers/validation.helper');
-const {getInvalidDirectionMessage, getTripMessage, backToStart} = require('../../common/helpers/messages.helper');
-const buttons = require("../../common/consts/buttons.const");
+} from '../../common/helpers/validation.helper.js';
+import {getInvalidDirectionMessage, getTripMessage, backToStart} from '../../common/helpers/messages.helper.js';
+import buttons from "../../common/consts/buttons.const.js";
 
-const saveTripScene = new Scenes.WizardScene(
+export const saveTripScene = new Scenes.WizardScene(
         'saveTrip',
-        async (ctx) => {
-            const chatId = ctx?.message ? String(ctx.message.chat.id) : ctx.callbackQuery.message.chat.id;
+        async (ctx: any) => {
+            const chatId = ctx?.message ? String(ctx.message.chat.id) : ctx.callbackQuery?.message.chat.id;
             const existedTripsCounter = (await getTripsByChatId(chatId)).length;
 
             if (existedTripsCounter >= 3) {
@@ -65,7 +65,6 @@ const saveTripScene = new Scenes.WizardScene(
         async (ctx) => {
             try {
                 if (ctx.message?.text === buttons.BACK) {
-                    console.log('wevw');
                     await backToStart(ctx);
                     return;
                 }
@@ -82,7 +81,7 @@ const saveTripScene = new Scenes.WizardScene(
                     const from = ctx.wizard.state.data.from;
                     const to = ctx.wizard.state.data.to;
                     const tripDate = ctx.wizard.state.data.tripDate;
-                    const chatId = ctx?.message ? String(ctx.message.chat.id) : ctx.callbackQuery.message.chat.id;
+                    const chatId = ctx?.message ? String(ctx.message.chat.id) : ctx.callbackQuery?.message.chat.id;
 
                     const isExistedTrip = await checkExistedTrip(chatId, from, to, tripDate);
 
@@ -91,7 +90,7 @@ const saveTripScene = new Scenes.WizardScene(
                         await ctx.scene.leave();
                         return;
                     }
-                    await ctx.reply(message.SHARE_PHONE, ctx.message.from.username ? buttons.SHARE_CONTACT_MENU : buttons.SHARE_PHONE_MENU);
+                    await ctx.reply(message.SHARE_PHONE, ctx.message?.from.username ? buttons.SHARE_CONTACT_MENU : buttons.SHARE_PHONE_MENU);
                     return ctx.wizard.next();
                 }
 
@@ -162,7 +161,7 @@ const saveTripScene = new Scenes.WizardScene(
                     return;
                 }
                 ctx.wizard.state.data.comment = ctx.message?.text;
-                const chatId = ctx?.message ? String(ctx.message.chat.id) : ctx.callbackQuery.message.chat.id;
+                const chatId = ctx?.message ? String(ctx.message.chat.id) : ctx.callbackQuery?.message.chat.id;
                 const username = ctx.wizard.state.data.contact;
                 const from = ctx.wizard.state.data.from;
                 const to = ctx.wizard.state.data.to;
@@ -190,7 +189,4 @@ const saveTripScene = new Scenes.WizardScene(
                 await backToStart(ctx);
             }
         }
-    )
-;
-
-module.exports = {saveTripScene};
+    );

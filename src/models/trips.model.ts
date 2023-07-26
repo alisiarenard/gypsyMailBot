@@ -1,7 +1,7 @@
-const db = require("../connections/db.connection");
-const  { DataTypes } = require("sequelize");
+import { db } from "../connections/db.connection.js";
+import  { DataTypes } from "sequelize";
 
-module.exports = db.define("trip", {
+const TripsModel = db.define("trip", {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -47,3 +47,5 @@ module.exports = db.define("trip", {
         defaultValue: true
     }
 });
+
+export default TripsModel;

@@ -1,8 +1,8 @@
 
-const db = require("../connections/db.connection");
-const  { DataTypes } = require("sequelize");
+import {db} from "../connections/db.connection.js";
+import  { DataTypes } from "sequelize";
 
-module.exports = db.define("subscription", {
+const SubscriptionsModel = db.define("subscription", {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -36,3 +36,5 @@ module.exports = db.define("subscription", {
         defaultValue: true,
     }
 });
+
+export default SubscriptionsModel;

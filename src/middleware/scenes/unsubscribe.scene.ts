@@ -1,18 +1,18 @@
-const {Scenes, Markup} = require("telegraf");
-const {getSubscriptionByChatId} = require("../../common/sequelize/getSubscriptionByChatId.sequelize");
-const {unsubscribe} = require("../../common/sequelize/unsibscribe.sequelize");
-const buttons = require('../../common/consts/buttons.const');
-const {backToStart} = require("../../common/helpers/messages.helper");
-const message = require('../../common/consts/messages.const');
-const {getFrom, getTo} = require("../../common/helpers/validation.helper");
+import {Scenes, Markup} from "telegraf";
+import {getSubscriptionByChatId} from "../../common/sequelize/getSubscriptionByChatId.sequelize.js";
+import {unsubscribe} from "../../common/sequelize/unsibscribe.sequelize.js";
+import buttons from '../../common/consts/buttons.const.js';
+import {backToStart} from "../../common/helpers/messages.helper.js";
+import message from '../../common/consts/messages.const.js';
+import {getFrom, getTo} from "../../common/helpers/validation.helper.js";
 
-const unsubscribeScene = new Scenes.WizardScene(
+export const unsubscribeScene = new Scenes.WizardScene(
     'unsubscribe',
-    async (ctx) => {
-        const chatId = String(ctx.message.from.id);
+    async (ctx: any) => {
+        const chatId = String(ctx.message?.from.id);
         getSubscriptionByChatId(chatId).then((data) => {
             if (data.length) {
-                const btns = data.map((subscription) => `${subscription.from} -> ${subscription.to}`);
+                const btns = data.map((subscription: any) => `${subscription.from} -> ${subscription.to}`);
 
                 btns.push(buttons.BACK);
                 ctx.reply(message.DELETE_SUBSCRIPTION, Markup.keyboard(btns).oneTime().resize());
@@ -30,7 +30,7 @@ const unsubscribeScene = new Scenes.WizardScene(
             return;
         }
 
-        const chatId = String(ctx.message.from.id);
+        const chatId = String(ctx.message?.from.id);
         const from = getFrom(ctx.message?.text, '->');
         const to = getTo(ctx.message?.text, '->');
 
@@ -39,5 +39,3 @@ const unsubscribeScene = new Scenes.WizardScene(
         });
         await ctx.scene.leave();
     });
-
-module.exports = {unsubscribeScene};

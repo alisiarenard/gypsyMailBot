@@ -1,4 +1,4 @@
-const {Markup} = require("telegraf");
+import {Markup} from "telegraf";
 
 const BACK = '⬅️ В начало';
 const SUBSCRIBE = 'Подписаться';
@@ -24,7 +24,7 @@ const PARCEL_TYPE_MENU = Markup.keyboard([DOCS, DOCS_BAGGAGE, BACK]);
 const COST_MENU = Markup.keyboard([FREE, BACK]);
 const COMMENT_MENU = Markup.keyboard([NO_COMMENTS, BACK])
 
-module.exports = {
+const buttons = {
     BACK,
     SUBSCRIBE,
     NEW_ROUTE,
@@ -36,5 +36,12 @@ module.exports = {
     PARCEL_TYPE_MENU,
     COST_MENU,
     COMMENT_MENU,
-    SHARE_CONTACT_MENU
-}
+    SHARE_CONTACT_MENU,
+    SAVE_TRIP,
+    GET_TRIPS,
+    SEE_ALL_ROUTES,
+    DELETE_SUBSCRIPTION,
+    DELETE_TRIP
+};
+
+export default buttons;
