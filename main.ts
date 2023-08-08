@@ -17,7 +17,7 @@ const bot = new Telegraf<Scenes.SceneContext>(process.env.BOT_TOKEN as string);
 
 bot.start(async (ctx) => { await startAction(ctx); });
 
-db.authenticate().then(() => { console.log('DB connected'); }).catch((err) => { console.log(err, process.env); });
+db.authenticate().then(() => { console.log('DB connected'); }).catch((err) => { console.log(err); });
 
 const stage = new Scenes.Stage([showAvailableTripsScene, saveTripScene, getTripScene, unsubscribeScene, deleteTripScene], {ttl: 600});
 bot.use(session());
