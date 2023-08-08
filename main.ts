@@ -8,7 +8,7 @@ import {unsubscribeScene} from './src/middleware/scenes/unsubscribe.scene.js';
 import {deleteTripScene} from './src/middleware/scenes/deleteTrip.scene.js';
 import { startAction } from "./src/middleware/actions/start.action.js";
 import buttons from "./src/common/consts/buttons.const.js";
-import db from "./src/connections/db.connection.js";
+import {Sequelize} from "sequelize";
 
 dotenv.config();
 
@@ -16,6 +16,17 @@ const bot = new Telegraf<Scenes.SceneContext>(process.env.BOT_TOKEN as string);
 (async (): Promise<void> => { await bot.launch(); })();
 
 bot.start(async (ctx) => { await startAction(ctx); });
+
+const db = new Sequelize(
+    process.env.POSTGRES_DATABASE as string,
+    process.env.POSTGRES_USERNAME as string,
+    process.env.POSTGRES_PASSWORDas as string,
+    {
+        host: process.env.POSTGRES_HOST as string,
+        port: 5432,
+        dialect: 'postgres'
+    }
+);
 
 db.authenticate().then(() => { console.log('DB connected'); }).catch((err) => { console.log(err); });
 
