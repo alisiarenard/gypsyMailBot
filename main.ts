@@ -20,7 +20,7 @@ bot.start(async (ctx) => { await startAction(ctx); });
 const db = new Sequelize(
     process.env.POSTGRES_DATABASE as string,
     process.env.POSTGRES_USERNAME as string,
-    process.env.POSTGRES_PASSWORDas as string,
+    process.env.POSTGRES_PASSWORD as string,
     {
         host: process.env.POSTGRES_HOST as string,
         port: 5432,
