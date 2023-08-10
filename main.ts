@@ -1,5 +1,5 @@
 // @ts-ignore
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import { Scenes, session, Telegraf, Context } from "telegraf";
 import {getTripScene} from "./src/middleware/scenes/request.scene.js";
 import {saveTripScene} from "./src/middleware/scenes/trip.scene.js";
@@ -8,23 +8,19 @@ import {unsubscribeScene} from './src/middleware/scenes/unsubscribe.scene.js';
 import {deleteTripScene} from './src/middleware/scenes/deleteTrip.scene.js';
 import { startAction } from "./src/middleware/actions/start.action.js";
 import buttons from "./src/common/consts/buttons.const.js";
-import {Sequelize} from "sequelize";
+import {Dialect, Sequelize} from "sequelize";
+import { conf } from "./conf.js";
 
-dotenv.config();
-
-const bot = new Telegraf<Scenes.SceneContext>(process.env.BOT_TOKEN as string);
+const bot = new Telegraf<Scenes.SceneContext>(conf.botToken);
 (async (): Promise<void> => { await bot.launch(); })();
 
 bot.start(async (ctx) => { await startAction(ctx); });
 
-const db = new Sequelize(
-    process.env.POSTGRES_DATABASE as string,
-    process.env.POSTGRES_USERNAME as string,
-    process.env.POSTGRES_PASSWORD as string,
+const db = new Sequelize(conf.database, conf.username, conf.password,
     {
-        host: process.env.POSTGRES_HOST as string,
-        port: 5432,
-        dialect: 'postgres'
+        host: conf.host,
+        port: conf.port,
+        dialect: conf.dialect as Dialect
     }
 );
 
@@ -44,3 +40,6 @@ bot.hears(buttons.DELETE_TRIP, async (ctx) => {
     await ctx.scene.enter("deleteTrip"); });
 bot.hears(buttons.DELETE_SUBSCRIPTION, async (ctx) => {
     await ctx.scene.enter("unsubscribe"); });
+
+
+export default db;

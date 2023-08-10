@@ -1,18 +1,12 @@
-import { Sequelize } from'sequelize';
-import dotenv from "dotenv";
+import {Dialect, Sequelize} from 'sequelize';
+// @ts-ignore
+import {conf} from "../../conf.js";
 
-// @ts-ignore
-// @ts-ignore
-dotenv.config();
-export const db = new Sequelize(
-    process.env.POSTGRES_DATABASE as string,
-    process.env.POSTGRES_USERNAME as string,
-    process.env.POSTGRES_PASSWORD as string,
+export const db = new Sequelize(conf.database, conf.username, conf.password,
     {
-        host: process.env.POSTGRES_HOST as string,
-        port: 5432,
-        dialect: 'postgres'
+        host: conf.host,
+        port: conf.port,
+        dialect: conf.dialect as Dialect
     }
 );
 
-export default db;
