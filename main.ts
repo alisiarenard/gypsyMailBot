@@ -7,7 +7,7 @@ import {deleteTripScene} from './src/middleware/scenes/deleteTrip.scene.js';
 import { startAction } from "./src/middleware/actions/start.action.js";
 import buttons from "./src/common/consts/buttons.const.js";
 import {Dialect, Sequelize} from "sequelize";
-import { config } from './src/config.js';
+import { config } from './src/connections/db.connection.js';
 
 const bot = new Telegraf<Scenes.SceneContext>(config.botToken);
 (async (): Promise<void> => { await bot.launch(); })();
