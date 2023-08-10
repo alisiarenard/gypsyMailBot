@@ -9,18 +9,18 @@ import {deleteTripScene} from './src/middleware/scenes/deleteTrip.scene.js';
 import { startAction } from "./src/middleware/actions/start.action.js";
 import buttons from "./src/common/consts/buttons.const.js";
 import {Dialect, Sequelize} from "sequelize";
-import conf from './src/conf.js';
+import config from './src/config.js';
 
-const bot = new Telegraf<Scenes.SceneContext>(conf.botToken);
+const bot = new Telegraf<Scenes.SceneContext>(config.botToken);
 (async (): Promise<void> => { await bot.launch(); })();
 
 bot.start(async (ctx) => { await startAction(ctx); });
 
-const db = new Sequelize(conf.database, conf.username, conf.password,
+const db = new Sequelize(config.database, config.username, config.password,
     {
-        host: conf.host,
-        port: conf.port,
-        dialect: conf.dialect as Dialect
+        host: config.host,
+        port: config.port,
+        dialect: config.dialect as Dialect
     }
 );
 

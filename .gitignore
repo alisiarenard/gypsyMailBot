@@ -1,4 +1,4 @@
 .idea/
 .npm
 node_modules/
-src/conf.ts
+src/config.ts

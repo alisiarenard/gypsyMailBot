@@ -1,11 +1,11 @@
 import {Dialect, Sequelize} from 'sequelize';
-import conf from "../conf.js";
+import config from "../config.js";
 
-export const db = new Sequelize(conf.database, conf.username, conf.password,
+export const db = new Sequelize(config.database, config.username, config.password,
     {
-        host: conf.host,
-        port: conf.port,
-        dialect: conf.dialect as Dialect
+        host: config.host,
+        port: config.port,
+        dialect: config.dialect as Dialect
     }
 );
 
