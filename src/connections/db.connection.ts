@@ -1,5 +1,5 @@
 import {Dialect, Sequelize} from 'sequelize';
-import {conf} from "./conf.js";
+import {conf} from "../conf.js";
 
 export const db = new Sequelize(conf.database, conf.username, conf.password,
     {
