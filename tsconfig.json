@@ -7,7 +7,7 @@
 
     /* Modules */
     "module": "NodeNext",                                /* Specify what module code is generated. */
-    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
+    "baseUrl": "./src",                                  /* Specify the root folder within your source files. */
     "resolveJsonModule": true,                        /* Enable importing .json files. */
 
     /* JavaScript Support */
