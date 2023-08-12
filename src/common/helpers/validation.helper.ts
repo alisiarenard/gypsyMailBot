@@ -2,6 +2,7 @@ import cities from "../../dictionary/cities.dictionary.js";
 
 export const isValidInput = (text: string) => /[а-яА-ЯЁё,-]+\s[а-яА-ЯЁё,-]+/.test(text) && text.includes(',');
 export const isValidCity = (cityName: string) => cities.city.filter((city: any) => city.name.toLowerCase() === cityName.trim().toLowerCase()).length !==0;
+export const isValidFromTo = (from: string, to: string) => from.toLowerCase() !== to.toLowerCase();
 export const isValidFormatDate = (date: string) => /^(0?[1-9]|[12][0-9]|3[01])[.](0?[1-9]|1[012])[.]\d{4}$/.test(date);
 
 export const getFrom = (item: any, divider = ',') => item.split(divider)[0]?.trim();

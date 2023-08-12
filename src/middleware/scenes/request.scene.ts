@@ -1,7 +1,7 @@
 import {Scenes, Markup} from "telegraf";
 import {getTrip} from "../../common/sequelize/getTrip.sequelize.js";
 import {subscribe} from "../../common/sequelize/subscribe.sequelize.js";
-import {isValidInput, isValidCity} from '../../common/helpers/validation.helper.js';
+import {isValidInput, isValidCity, isValidFromTo} from '../../common/helpers/validation.helper.js';
 import moment from "moment";
 import message from '../../common/consts/messages.const.js';
 import {getInvalidDirectionMessage, getTripMessage, backToStart} from '../../common/helpers/messages.helper.js';
@@ -27,8 +27,9 @@ export const getTripScene = new Scenes.WizardScene(
                     const to = getTo(ctx.message?.text);
                     const fromIsValid = isValidCity(from);
                     const toIsValid = isValidCity(to);
+                    const isDiffCities = isValidFromTo(from, to);
 
-                    if (fromIsValid && toIsValid) {
+                    if (fromIsValid && toIsValid && isDiffCities) {
                         const data = await getTrip(from, to);
                         ctx.wizard.state.data.from = from;
                         ctx.wizard.state.data.to = to;
@@ -44,7 +45,7 @@ export const getTripScene = new Scenes.WizardScene(
                             return ctx.wizard.next();
                         }
                     } else {
-                        await ctx.reply(getInvalidDirectionMessage(fromIsValid, toIsValid));
+                        await ctx.reply(getInvalidDirectionMessage(fromIsValid, toIsValid, isDiffCities));
                     }
                 }
             } catch

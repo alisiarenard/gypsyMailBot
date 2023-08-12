@@ -41,7 +41,8 @@ const buttons = {
     GET_TRIPS,
     SEE_ALL_ROUTES,
     DELETE_SUBSCRIPTION,
-    DELETE_TRIP
+    DELETE_TRIP,
+    SHARE_PHONE
 };
 
 export default buttons;
