@@ -9,12 +9,11 @@ export function getInvalidDirectionMessage(fromIsValid: boolean, toIsValid: bool
 
 export function getTripMessage(trip: any) {
     const href = `https://t.me/${trip.username}`;
-    console.log('dddd', href);
     const contact = Array.from(trip.username)[0] === '+' ? href : '@' + trip.username;
     const comment = trip.comment === 'Без комментария' ? '' : `\nКомментарий: ${trip.comment}`;
     const formatDate = moment(trip.tripDate).format('DD.MM.yyyy');
 
-    return `Контакт: ${contact}\nДата: ${formatDate}\nМожет передать: ${trip.parcelType}\nСтоимость: ${trip.cost}${comment}`;
+    return `Контакт: ${contact}\nДата прибытия: ${formatDate}\nМожет передать: ${trip.parcelType}\nСтоимость: ${trip.cost}${comment}`;
 }
 
 export async function backToStart(ctx: any) {

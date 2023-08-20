@@ -2,7 +2,7 @@ import {Scenes, Markup} from "telegraf";
 import {getAvailableTrips} from "../../common/sequelize/availableTrips.sequelize.js";
 import message from '../../common/consts/messages.const.js';
 import {getTrip} from "../../common/sequelize/getTrip.sequelize.js";
-import {getTripMessage} from "../../common/helpers/messages.helper.js";
+import {backToStart, getTripMessage} from "../../common/helpers/messages.helper.js";
 import buttons from "../../common/consts/buttons.const.js";
 import {startAction} from "../actions/start.action.js";
 import {getFrom, getTo} from "../../common/helpers/validation.helper.js";
@@ -35,8 +35,9 @@ export const showAvailableTripsScene = new Scenes.WizardScene(
     async (ctx) => {
         try {
             if (ctx.callbackQuery?.data === buttons.BACK) {
+                await ctx.deleteMessage();
                 await ctx.scene.leave();
-                await startAction(ctx);
+                await backToStart(ctx);
                 return;
             }
 

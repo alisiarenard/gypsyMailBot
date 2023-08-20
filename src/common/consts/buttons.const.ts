@@ -3,7 +3,7 @@ import {Markup} from "telegraf";
 const BACK = '⬅️ В начало';
 const SUBSCRIBE = 'Подписаться';
 const NEW_ROUTE = 'Новый маршрут';
-const SHARE_PHONE = 'Поделись контактом';
+const SHARE_PHONE = 'Поделиться контактом';
 const DOCS = 'Документы';
 const DOCS_BAGGAGE = 'Документы и/или багаж';
 const FREE = 'Бесплатно';
