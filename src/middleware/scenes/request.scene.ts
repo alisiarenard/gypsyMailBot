@@ -9,6 +9,8 @@ import {checkSubscription} from "../../common/sequelize/checkSubscriptions.seque
 import buttons from "../../common/consts/buttons.const.js";
 import {getFrom, getTo} from "../../common/helpers/validation.helper.js";
 
+const COMMANDS = [buttons.BACK, buttons.DELETE_SUBSCRIPTION, buttons.DELETE_TRIP, buttons.SAVE_TRIP, buttons.SEE_ALL_ROUTES];
+
 export const getTripScene = new Scenes.WizardScene(
         'getTrip',
         async (ctx: any) => {
@@ -19,10 +21,15 @@ export const getTripScene = new Scenes.WizardScene(
         },
         async (ctx) => {
             try {
-                if (ctx.message?.text === buttons.BACK) {
+                if (ctx.message?.text === buttons.GET_TRIPS) {
+                    ctx.scene.reenter();
+                    return;
+                }
+                if (COMMANDS.includes(ctx.message?.text)) {
                     await backToStart(ctx);
                     return;
                 }
+
                 const isInvalidInput = !isValidInput(ctx.message?.text);
                 if (isInvalidInput) {
                     await ctx.reply(message.INVALID_ROUTE);
@@ -60,7 +67,7 @@ export const getTripScene = new Scenes.WizardScene(
         },
         async (ctx) => {
             try {
-                if (ctx.message?.text === buttons.BACK) {
+                if (COMMANDS.includes(ctx.message?.text)) {
                     await backToStart(ctx);
                     return;
                 }
@@ -77,6 +84,10 @@ export const getTripScene = new Scenes.WizardScene(
             }
         }
     );
+
+getTripScene.action(buttons.GET_TRIPS, async (ctx) => {
+    console.log(ctx, 'sdgsdgsdg')
+})
 
 
 const onSubscribe = (ctx: any) => {

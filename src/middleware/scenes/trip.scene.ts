@@ -13,6 +13,8 @@ import {getInvalidDirectionMessage, getTripMessage, backToStart} from '../../com
 import buttons from "../../common/consts/buttons.const.js";
 import * as console from "console";
 
+const COMMANDS = [buttons.BACK, buttons.DELETE_SUBSCRIPTION, buttons.DELETE_TRIP, buttons.GET_TRIPS, buttons.SEE_ALL_ROUTES];
+
 export const saveTripScene = new Scenes.WizardScene(
     'saveTrip',
     async (ctx: any) => {
@@ -32,7 +34,11 @@ export const saveTripScene = new Scenes.WizardScene(
     },
     async (ctx) => {
         try {
-            if (ctx.message?.text === buttons.BACK) {
+            if (ctx.message?.text === buttons.SAVE_TRIP) {
+                ctx.scene.reenter();
+                return;
+            }
+            if (COMMANDS.includes(ctx.message?.text)) {
                 await backToStart(ctx);
                 return;
             }
@@ -66,7 +72,11 @@ export const saveTripScene = new Scenes.WizardScene(
     },
     async (ctx) => {
         try {
-            if (ctx.message?.text === buttons.BACK) {
+            if (ctx.message?.text === buttons.SAVE_TRIP) {
+                ctx.scene.reenter();
+                return;
+            }
+            if (COMMANDS.includes(ctx.message?.text)) {
                 await backToStart(ctx);
                 return;
             }
@@ -105,7 +115,12 @@ export const saveTripScene = new Scenes.WizardScene(
     },
     async (ctx) => {
         try {
-            if (ctx.message?.text === buttons.BACK) {
+            if (ctx.message?.text === buttons.SAVE_TRIP) {
+                ctx.scene.reenter();
+                return;
+            }
+
+            if (COMMANDS.includes(ctx.message?.text)) {
                 await backToStart(ctx);
                 return;
             }
@@ -129,7 +144,12 @@ export const saveTripScene = new Scenes.WizardScene(
     },
     async (ctx) => {
         try {
-            if (ctx.message?.text === buttons.BACK) {
+            if (ctx.message?.text === buttons.SAVE_TRIP) {
+                ctx.scene.reenter();
+                return;
+            }
+
+            if (COMMANDS.includes(ctx.message?.text)) {
                 await backToStart(ctx);
                 return;
             }
@@ -146,7 +166,12 @@ export const saveTripScene = new Scenes.WizardScene(
     },
     async (ctx) => {
         try {
-            if (ctx.message?.text === buttons.BACK) {
+            if (ctx.message?.text === buttons.SAVE_TRIP) {
+                ctx.scene.reenter();
+                return;
+            }
+
+            if (COMMANDS.includes(ctx.message?.text)) {
                 await backToStart(ctx);
                 return;
             }
@@ -163,7 +188,12 @@ export const saveTripScene = new Scenes.WizardScene(
     },
     async (ctx) => {
         try {
-            if (ctx.message?.text === buttons.BACK) {
+            if (ctx.message?.text === buttons.SAVE_TRIP) {
+                ctx.scene.reenter();
+                return;
+            }
+
+            if (COMMANDS.includes(ctx.message?.text)) {
                 await backToStart(ctx);
                 return;
             }
