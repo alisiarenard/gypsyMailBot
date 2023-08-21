@@ -12,13 +12,17 @@ import {getFrom, getTo} from "../../common/helpers/validation.helper.js";
 export const getTripScene = new Scenes.WizardScene(
         'getTrip',
         async (ctx: any) => {
-            await ctx.reply(message.FROM_TO);
+            await ctx.reply(message.FROM_TO, buttons.BACK_MENU);
 
             ctx.wizard.state.data = {};
             return ctx.wizard.next();
         },
         async (ctx) => {
             try {
+                if (ctx.message?.text === buttons.BACK) {
+                    await backToStart(ctx);
+                    return;
+                }
                 const isInvalidInput = !isValidInput(ctx.message?.text);
                 if (isInvalidInput) {
                     await ctx.reply(message.INVALID_ROUTE);
